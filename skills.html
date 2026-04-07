@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills — Tasha Nishid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--paper:#F4EFE6;--ink:#111;--ink-mid:#555;--ink-dim:#999;--blue:#49A8DC;--grid:rgba(0,0,0,0.055);}
+        *{box-sizing:border-box;margin:0;padding:0;}
+        html,body{height:100%;}
+        body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;font-family:-apple-system,'Helvetica Neue',sans-serif;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 20px 32px;}
+        .menubar{position:fixed;top:0;left:0;right:0;height:26px;background:rgba(242,237,226,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:200;font-size:12.5px;font-weight:500;color:#555;user-select:none;}
+        .window{width:100%;max-width:560px;background:rgba(252,249,242,0.97);border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.1),0 2px 6px rgba(0,0,0,0.05);overflow:hidden;animation:winIn .45s cubic-bezier(.22,1,.36,1) both;}
+        @keyframes winIn{from{opacity:0;transform:scale(.94) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+        .win-bar{height:34px;background:rgba(235,230,220,0.9);border-bottom:1px solid rgba(0,0,0,0.09);display:flex;align-items:center;padding:0 14px;position:relative;}
+        .ctrls{display:flex;gap:7px;position:absolute;left:14px;}
+        .c{width:12px;height:12px;border-radius:50%;cursor:pointer;border:1px solid rgba(0,0,0,0.1);}
+        .cr{background:#FF5F57;}.cy{background:#FEBC2E;}.cg{background:#28C840;}
+        .win-title{width:100%;text-align:center;font-size:12.5px;font-weight:500;color:#666;}
+        .body{padding:22px 26px 28px;}
+
+        .sec{margin-bottom:20px;}
+        .sec-lbl{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px;}
+        .pills{display:flex;flex-wrap:wrap;gap:6px;}
+        .pill{font-family:'Space Mono',monospace;font-size:11.5px;padding:5px 12px;border-radius:20px;border:1.5px solid rgba(0,0,0,0.1);color:var(--ink-mid);background:rgba(0,0,0,0.025);transition:all .13s;cursor:default;}
+        .pill:hover{border-color:var(--blue);color:var(--blue);}
+        .pill.b{border-color:rgba(73,168,220,0.35);color:rgba(73,168,220,0.9);background:rgba(73,168,220,0.06);}
+        .pill.g{border-color:rgba(40,180,60,0.35);color:rgba(30,150,50,0.9);background:rgba(40,180,60,0.05);}
+        .pill.o{border-color:rgba(220,120,30,0.35);color:rgba(200,100,20,0.9);background:rgba(220,120,30,0.05);}
+        .pill.p{border-color:rgba(150,80,220,0.35);color:rgba(130,60,200,0.9);background:rgba(150,80,220,0.05);}
+
+        .divider{height:1px;background:rgba(0,0,0,0.07);margin:4px 0 18px;}
+
+        .certs{display:flex;flex-direction:column;gap:7px;}
+        .cert{display:flex;align-items:center;gap:10px;padding:9px 13px;background:rgba(0,0,0,0.025);border:1px solid rgba(0,0,0,0.07);border-radius:7px;font-size:12.5px;color:var(--ink-mid);}
+
+        .nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+        .btn{font-family:'Space Mono',monospace;font-size:11px;padding:7px 13px;border-radius:7px;border:1.5px solid rgba(0,0,0,0.1);background:transparent;color:var(--ink-mid);cursor:pointer;text-decoration:none;transition:all .13s;}
+        .btn:hover{border-color:var(--blue);color:var(--blue);}
+    </style>
+</head>
+<body>
+    <div class="menubar"><div style="display:flex;gap:16px;"><span style="font-size:14px">&#63743;</span><strong style="color:#111">Tasha Nishid</strong></div></div>
+    <div class="window">
+        <div class="win-bar">
+            <div class="ctrls"><div class="c cr" onclick="location.href='index.html'"></div><div class="c cy"></div><div class="c cg"></div></div>
+            <div class="win-title">Skills.json</div>
+        </div>
+        <div class="body">
+            <div class="sec">
+                <div class="sec-lbl">Languages</div>
+                <div class="pills">
+                    <span class="pill b">Python</span><span class="pill b">Java</span><span class="pill b">SQL</span><span class="pill b">R</span><span class="pill b">Dart</span><span class="pill b">LaTeX</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="sec">
+                <div class="sec-lbl">Frameworks & Tools</div>
+                <div class="pills">
+                    <span class="pill g">React</span><span class="pill g">Flask</span><span class="pill g">Flutter</span><span class="pill g">Shiny</span><span class="pill g">Databricks</span><span class="pill g">Sphera</span><span class="pill g">Eclipse</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="sec">
+                <div class="sec-lbl">Cloud & DevOps</div>
+                <div class="pills">
+                    <span class="pill o">AWS SageMaker</span><span class="pill o">AWS Lex</span><span class="pill o">Azure</span><span class="pill o">Google Cloud</span><span class="pill o">Git</span><span class="pill o">Linux</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="sec">
+                <div class="sec-lbl">Data & Design</div>
+                <div class="pills">
+                    <span class="pill p">Data Modeling</span><span class="pill p">ML / AI</span><span class="pill p">Excel</span><span class="pill p">Agile</span><span class="pill p">Adobe XD</span><span class="pill p">UI/UX</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="sec">
+                <div class="sec-lbl">Certifications</div>
+                <div class="certs">
+                    <div class="cert">🏅 AWS: Generative AI in Action – Real-World Use Cases</div>
+                    <div class="cert">🏅 Health & Safety Risk Management (HSRM-B)</div>
+                </div>
+            </div>
+            <div class="nav">
+                <a class="btn" href="index.html">← Desktop</a>
+                <a class="btn" href="projects.html">→ Projects</a>
+                <a class="btn" href="coursework.html">→ Coursework</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

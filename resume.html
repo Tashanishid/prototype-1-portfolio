@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume — Tasha Nishid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--paper:#F4EFE6;--ink:#111;--ink-mid:#555;--ink-dim:#999;--blue:#49A8DC;--grid:rgba(0,0,0,0.055);}
+        *{box-sizing:border-box;margin:0;padding:0;}html,body{height:100%;}
+        body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;font-family:-apple-system,'Helvetica Neue',sans-serif;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 20px 32px;}
+        .menubar{position:fixed;top:0;left:0;right:0;height:26px;background:rgba(242,237,226,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,0.1);display:flex;align-items:center;padding:0 14px;z-index:200;font-size:12.5px;font-weight:500;color:#555;user-select:none;}
+        .window{width:100%;max-width:580px;background:rgba(252,249,242,0.97);border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.1);overflow:hidden;animation:winIn .45s cubic-bezier(.22,1,.36,1) both;}
+        @keyframes winIn{from{opacity:0;transform:scale(.94) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+        .win-bar{height:34px;background:rgba(235,230,220,0.9);border-bottom:1px solid rgba(0,0,0,0.09);display:flex;align-items:center;padding:0 14px;position:relative;}
+        .ctrls{display:flex;gap:7px;position:absolute;left:14px;}
+        .c{width:12px;height:12px;border-radius:50%;cursor:pointer;border:1px solid rgba(0,0,0,0.1);}
+        .cr{background:#FF5F57;}.cy{background:#FEBC2E;}.cg{background:#28C840;}
+        .win-title{width:100%;text-align:center;font-size:12.5px;font-weight:500;color:#666;}
+        .body{padding:24px 28px 30px;}
+        .rh{margin-bottom:20px;}
+        .rh-name{font-size:28px;font-weight:900;letter-spacing:-1.5px;color:var(--ink);margin-bottom:4px;}
+        .rh-name span{color:var(--blue);}
+        .rh-meta{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--ink-dim);line-height:1.7;}
+        .divider{height:1px;background:rgba(0,0,0,0.08);margin:16px 0;}
+        .sec{margin-bottom:18px;}
+        .sec-lbl{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:11px;}
+        .entry{margin-bottom:14px;}
+        .eh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px;}
+        .et{font-size:13.5px;font-weight:700;color:var(--ink);}
+        .ed{font-family:'Space Mono',monospace;font-size:10px;color:var(--ink-dim);}
+        .es{font-size:12px;color:var(--blue);margin-bottom:5px;}
+        .eb{list-style:none;display:flex;flex-direction:column;gap:3px;}
+        .eb li{font-size:12.5px;color:var(--ink-mid);line-height:1.5;padding-left:13px;position:relative;}
+        .eb li::before{content:'·';position:absolute;left:0;color:var(--blue);font-weight:700;}
+        .nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+        .btn{font-family:'Space Mono',monospace;font-size:11px;padding:7px 14px;border-radius:7px;border:1.5px solid rgba(0,0,0,0.1);background:transparent;color:var(--ink-mid);cursor:pointer;text-decoration:none;transition:all .13s;display:inline-block;}
+        .btn:hover{border-color:var(--blue);color:var(--blue);}
+        .btn.primary{border-color:var(--blue);color:var(--blue);background:rgba(73,168,220,0.07);}
+    </style>
+</head>
+<body>
+    <div class="menubar"><div style="display:flex;gap:16px;"><span style="font-size:14px">&#63743;</span><strong style="color:#111">Tasha Nishid</strong></div></div>
+    <div class="window">
+        <div class="win-bar">
+            <div class="ctrls"><div class="c cr" onclick="location.href='index.html'"></div><div class="c cy"></div><div class="c cg"></div></div>
+            <div class="win-title">Resume.pdf — Tasha Nishid</div>
+        </div>
+        <div class="body">
+            <div class="rh">
+                <div class="rh-name">Tasha <span>Nishid</span></div>
+                <div class="rh-meta">West Lafayette, IN · (765) 543-1017 · tnishid@purdue.edu · linkedin.com/in/tashanishid</div>
+            </div>
+            <div class="sec">
+                <div class="sec-lbl">Education</div>
+                <div class="entry">
+                    <div class="eh"><div class="et">Purdue University</div><div class="ed">Aug 2024 – May 2028</div></div>
+                    <div class="es">B.S. Data Science · CS Concentration (Machine Intelligence Track)</div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="sec">
+                <div class="sec-lbl">Experience</div>
+                <div class="entry">
+                    <div class="eh"><div class="et">Kimberly-Clark – The Data Mine</div><div class="ed">Aug 2025 – Present</div></div>
+                    <div class="es">Developer · West Lafayette, IN</div>
+                    <ul class="eb">
+                        <li>Built Python pipelines to clean and validate sustainability metrics across plastics, fibers, and Scope 3 emissions.</li>
+                        <li>Implemented ML models to identify data quality issues and predict resource trends; integrated SAP & Sphera data.</li>
+                    </ul>
+                </div>
+                <div class="entry">
+                    <div class="eh"><div class="et">Infopercept – Cybersecurity Services</div><div class="ed">May 2025 – Aug 2025</div></div>
+                    <div class="es">Intern · Remote</div>
+                    <ul class="eb">
+                        <li>Developed AI-powered SIEM analytics to improve threat detection efficiency.</li>
+                        <li>Built conversational AI agents with AWS SageMaker & Lex, automating SOC workflows.</li>
+                    </ul>
+                </div>
+                <div class="entry">
+                    <div class="eh"><div class="et">Alcumus ISOQAR</div><div class="ed">Jan 2023 – Jan 2025</div></div>
+                    <div class="es">Intern · Remote</div>
+                    <ul class="eb">
+                        <li>Built software to capture evidence against security controls, improving audit accuracy.</li>
+                        <li>Contributed to AI-driven compliance framework for fintech, streamlining audit reporting.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav">
+                <a class="btn primary" href="#" onclick="alert('Add your PDF link here!')">↓ Download PDF</a>
+                <a class="btn" href="index.html">← Desktop</a>
+                <a class="btn" href="projects.html">→ Projects</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

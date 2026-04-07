@@ -3,194 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wireframe - Desktop Portfolio</title>
-    <!-- Fonts: Inter for UI, Caveat for handwritten annotations -->
+    <title>Tasha Nishid — Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
+        :root {
+            --paper:     #F4EFE6;
+            --paper-mid: #EDE7DB;
+            --ink:       #111111;
+            --ink-mid:   #555;
+            --ink-dim:   #999;
+            --blue:      #49A8DC;
+            --blue-hi:   #6FC0EA;
+            --blue-lo:   #2980B9;
+            --grid:      rgba(0,0,0,0.055);
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; overflow: hidden; }
 
         body {
-            /* Light cream color */
-            background-color: #fdfbf7;
-            /* Subtle notebook grid: evenly spaced horizontal and vertical lines in soft blue-grey, 28px apart */
-            background-image: 
-                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-color: var(--paper);
+            background-image:
+                linear-gradient(var(--grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px);
             background-size: 28px 28px;
-            
-            margin: 0;
-            padding: 0;
+            font-family: -apple-system, 'Helvetica Neue', sans-serif;
+            color: var(--ink);
             height: 100vh;
             width: 100vw;
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
             position: relative;
-            color: #334155;
+            user-select: none;
         }
 
-        /* Non-clickable elements */
-        .bottom-left-text {
+        /* ---- MENUBAR ---- */
+        .menubar {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: 26px;
+            background: rgba(242,237,226,0.88);
+            backdrop-filter: blur(14px) saturate(160%);
+            -webkit-backdrop-filter: blur(14px) saturate(160%);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 14px; z-index: 200;
+            font-size: 12.5px; font-weight: 500; color: #444;
+            user-select: none;
+        }
+        .mb-l { display: flex; gap: 16px; align-items: center; }
+        .mb-r { display: flex; gap: 10px; align-items: center; font-size: 12px; color: #888; }
+
+        /* ---- HERO NAME ---- */
+        .hero {
             position: absolute;
-            bottom: 24px;
-            left: 24px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #64748b;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+            animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.05s both;
         }
 
-        .top-right-text {
+        /* Big bold black type like "What is iOS Core?" */
+        .hero-name {
+            font-size: clamp(72px, 11vw, 136px);
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 0.88;
+            color: var(--ink);
+            font-family: -apple-system, 'Helvetica Neue', 'Arial Black', sans-serif;
+            margin-bottom: 18px;
+        }
+        /* The second word gets the blue highlight treatment like "iOS" in the inspo */
+        .hero-name .accent {
+            color: var(--blue);
+            display: inline-block;
+            position: relative;
+        }
+        /* Subtle underline box behind accent like the iOS bracket */
+        .hero-name .accent::after {
+            content: '';
             position: absolute;
-            top: 24px;
-            right: 24px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #64748b;
+            bottom: 4px; left: -3px; right: -3px;
+            height: 6px;
+            background: rgba(73,168,220,0.18);
+            border-radius: 2px;
         }
 
-        /* Desktop Items */
-        .desktop-item {
+        .hero-sub {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--ink-dim);
+            letter-spacing: 0.04em;
+            line-height: 1.8;
+        }
+
+        /* ---- DESKTOP ICONS — real macOS folder look ---- */
+        .icon {
             position: absolute;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100px;
+            gap: 5px;
             cursor: pointer;
+            width: 90px;
+            animation: iconIn 0.4s cubic-bezier(0.22,1,0.36,1) both;
         }
+        .icon:hover svg { filter: brightness(1.1) saturate(1.1); transform: translateY(-3px); }
+        .icon:active svg { filter: brightness(0.92); transform: scale(0.95); }
+        .icon svg { transition: filter 0.12s, transform 0.12s; }
 
-        .icon-box {
-            /* 64x64px flat square box */
-            width: 64px;
-            height: 64px;
-            background-color: #f1f5f9;
-            border: 2px solid #94a3b8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 28px;
-            transition: all 0.2s ease;
-        }
-
-        /* Hover effect for a bit of interaction */
-        .desktop-item:hover .icon-box {
-            transform: translateY(-2px);
-            background-color: #ffffff;
-            box-shadow: 2px 2px 0px #cbd5e1;
-            border-color: #64748b;
-        }
-
-        .icon-label {
-            margin-top: 8px;
-            font-size: 13px;
+        .icon-lbl {
+            font-size: 12px;
             font-weight: 500;
+            color: var(--ink);
             text-align: center;
-            text-shadow: 1px 1px 0 #fdfbf7, -1px -1px 0 #fdfbf7, 1px -1px 0 #fdfbf7, -1px 1px 0 #fdfbf7;
-        }
-
-        /* Annotations (Wireframe specific) */
-        .annotation {
-            position: absolute;
-            font-family: 'Caveat', cursive;
-            color: #dc2626; /* red pen color */
-            font-size: 20px;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 -1px 0 rgba(255,255,255,0.9);
+            line-height: 1.3;
             white-space: nowrap;
-            pointer-events: none;
-            /* semi-transparent background to ensure readability over grid */
-            background: rgba(253, 251, 247, 0.85); 
-            padding: 2px 8px;
-            border-radius: 4px;
         }
 
-        /* 
-           Positions: Loose, scattered placement, not in a grid.
-           (Upper left, Upper right, Lower center, Lower right)
-        */
+        /* RIGHT COLUMN */
+        #ic-projects   { top: 10%;  right: 3%; animation-delay: 0.18s; }
+        #ic-about      { top: 28%;  right: 3%; animation-delay: 0.24s; }
+        #ic-skills     { top: 46%;  right: 3%; animation-delay: 0.30s; }
+        #ic-coursework { top: 64%;  right: 3%; animation-delay: 0.36s; }
+        /* LEFT COLUMN */
+        #ic-contact    { top: 10%;  left: 3%;  animation-delay: 0.20s; }
+        #ic-resume     { top: 28%;  left: 3%;  animation-delay: 0.28s; }
 
-        /* Upper left area: Projects */
-        #item-projects {
-            top: 15%;
-            left: 12%;
+        /* ---- DOCK ---- */
+        .dock {
+            position: fixed;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,252,245,0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(0,0,0,0.13);
+            border-radius: 20px;
+            padding: 7px 14px;
+            display: flex; gap: 6px; align-items: flex-end;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06);
+            animation: dockIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.4s both;
         }
-        #anno-projects {
-            top: calc(15% + 15px);
-            left: calc(12% + 100px);
-            transform: rotate(-2deg);
+        .dock-item {
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            cursor: pointer; position: relative;
+            transition: transform 0.12s ease;
         }
+        .dock-item:hover { transform: translateY(-8px) scale(1.14); }
+        .dock-item:active { transform: translateY(-3px) scale(1.04); }
+        .dock-item svg { display: block; }
+        .dock-tip {
+            position: absolute; bottom: 64px;
+            background: rgba(20,20,20,0.82);
+            color: #fff; font-size: 11px; padding: 3px 8px;
+            border-radius: 6px; white-space: nowrap;
+            opacity: 0; pointer-events: none; transition: opacity 0.1s;
+        }
+        .dock-item:hover .dock-tip { opacity: 1; }
+        .dock-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(0,0,0,0.4); }
 
-        /* Upper right area: About Me */
-        #item-about {
-            top: 22%;
-            right: 18%;
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translate(-50%, calc(-50% + 16px)); }
+            to   { opacity: 1; transform: translate(-50%, -50%); }
         }
-        #anno-about {
-            top: calc(22% + 15px);
-            right: calc(18% + 100px);
-            transform: rotate(1deg);
+        @keyframes iconIn {
+            from { opacity: 0; transform: scale(0.7) translateY(8px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
         }
-
-        /* Lower center area: Say Hello (Rotated 3 degrees for personality) */
-        #item-contact {
-            top: 65%;
-            left: 50%;
-            transform: translateX(-50%) rotate(3deg);
+        @keyframes dockIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(18px); }
+            to   { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
-        #anno-contact {
-            top: calc(65% + 15px);
-            left: calc(50% + 60px);
-            transform: rotate(-3deg);
-        }
-
-        /* Lower right area: Resume */
-        #item-resume {
-            top: 75%;
-            right: 15%;
-        }
-        #anno-resume {
-            top: calc(75% + 15px);
-            right: calc(15% + 100px);
-            transform: rotate(2deg);
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- Non-clickable elements -->
-    <div class="bottom-left-text">[NAME] — Portfolio</div>
-    <div class="top-right-text">[ dark / light ]</div>
-
-    <!-- Desktop Icons & Annotations -->
-    
-    <!-- 1. Projects -->
-    <div class="desktop-item" id="item-projects" ondblclick="window.location.href='projects.html'">
-        <div class="icon-box">📁</div>
-        <div class="icon-label">Projects</div>
+    <!-- MENUBAR -->
+    <div class="menubar">
+        <div class="mb-l">
+            <span style="font-size:15px; line-height:1;">&#63743;</span>
+            <strong style="color:#111;">Tasha Nishid</strong>
+            <span style="color:#999; font-weight:400;">File</span>
+            <span style="color:#999; font-weight:400;">View</span>
+            <span style="color:#999; font-weight:400;">Go</span>
+            <span style="color:#999; font-weight:400;">Window</span>
+        </div>
+        <div class="mb-r">
+            <span>Tue Apr 8</span>
+            <span id="clock"></span>
+        </div>
     </div>
-    <div class="annotation" id="anno-projects">← double-click → Projects Folder</div>
 
-    <!-- 2. About Me.txt -->
-    <div class="desktop-item" id="item-about" ondblclick="window.location.href='about.html'">
-        <div class="icon-box">📄</div>
-        <div class="icon-label">About Me.txt</div>
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-name">
+            Tasha<br>
+            <span class="accent">Nishid.</span>
+        </div>
+        <div class="hero-sub">
+            Data Science · Purdue University · Class of '28<br>
+            ML &nbsp;·&nbsp; Full-Stack &nbsp;·&nbsp; Cybersecurity &nbsp;·&nbsp; Design
+        </div>
     </div>
-    <div class="annotation" id="anno-about">double-click → About Me Window →</div>
 
-    <!-- 3. Say Hello -->
-    <div class="desktop-item" id="item-contact" onclick="window.location.href='contact.html'">
-        <div class="icon-box">📌</div>
-        <div class="icon-label">Say Hello</div>
+    <!-- ICONS - RIGHT -->
+    <div class="icon" id="ic-projects" ondblclick="location.href='projects.html'">
+        <!-- macOS folder SVG — exact blue Aqua folder shape -->
+        <svg width="72" height="62" viewBox="0 0 72 62" fill="none">
+            <!-- folder back tab -->
+            <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 Q68 18 68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+            <!-- folder body back -->
+            <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#fbg)"/>
+            <!-- folder body front highlight -->
+            <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+            <!-- folder shine -->
+            <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+            <!-- subtle inner shadow bottom -->
+            <rect x="4" y="50" width="64" height="8" rx="5" fill="rgba(0,60,120,0.12)"/>
+            <defs>
+                <linearGradient id="fbg" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5DC3F0"/>
+                    <stop offset="100%" stop-color="#2980C8"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="icon-lbl">Projects</div>
     </div>
-    <div class="annotation" id="anno-contact">← click → Contact Card Modal</div>
 
-    <!-- 4. Resume.pdf -->
-    <div class="desktop-item" id="item-resume" onclick="alert('Downloading Resume.pdf...')">
-        <div class="icon-box">🗒</div>
-        <div class="icon-label">Resume.pdf</div>
+    <div class="icon" id="ic-about" ondblclick="location.href='about.html'">
+        <svg width="72" height="62" viewBox="0 0 72 62" fill="none">
+            <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+            <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#fbg2)"/>
+            <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+            <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+            <rect x="4" y="50" width="64" height="8" rx="5" fill="rgba(0,60,120,0.12)"/>
+            <defs>
+                <linearGradient id="fbg2" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5DC3F0"/>
+                    <stop offset="100%" stop-color="#2980C8"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="icon-lbl">About Me.txt</div>
     </div>
-    <div class="annotation" id="anno-resume">click → downloads PDF →</div>
 
+    <div class="icon" id="ic-skills" ondblclick="location.href='skills.html'">
+        <svg width="72" height="62" viewBox="0 0 72 62" fill="none">
+            <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+            <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#fbg3)"/>
+            <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+            <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+            <rect x="4" y="50" width="64" height="8" rx="5" fill="rgba(0,60,120,0.12)"/>
+            <defs>
+                <linearGradient id="fbg3" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5DC3F0"/>
+                    <stop offset="100%" stop-color="#2980C8"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="icon-lbl">Skills.json</div>
+    </div>
+
+    <div class="icon" id="ic-coursework" ondblclick="location.href='coursework.html'">
+        <svg width="72" height="62" viewBox="0 0 72 62" fill="none">
+            <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+            <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#fbg4)"/>
+            <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+            <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+            <rect x="4" y="50" width="64" height="8" rx="5" fill="rgba(0,60,120,0.12)"/>
+            <defs>
+                <linearGradient id="fbg4" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5DC3F0"/>
+                    <stop offset="100%" stop-color="#2980C8"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="icon-lbl">Coursework</div>
+    </div>
+
+    <!-- ICONS - LEFT -->
+    <div class="icon" id="ic-contact" ondblclick="location.href='contact.html'">
+        <svg width="72" height="62" viewBox="0 0 72 62" fill="none">
+            <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+            <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#fbg5)"/>
+            <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+            <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+            <rect x="4" y="50" width="64" height="8" rx="5" fill="rgba(0,60,120,0.12)"/>
+            <defs>
+                <linearGradient id="fbg5" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5DC3F0"/>
+                    <stop offset="100%" stop-color="#2980C8"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="icon-lbl">Say Hello</div>
+    </div>
+
+    <div class="icon" id="ic-resume" ondblclick="location.href='resume.html'">
+        <svg width="72" height="62" viewBox="0 0 72 62" fill="none">
+            <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+            <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#fbg6)"/>
+            <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+            <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+            <rect x="4" y="50" width="64" height="8" rx="5" fill="rgba(0,60,120,0.12)"/>
+            <defs>
+                <linearGradient id="fbg6" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5DC3F0"/>
+                    <stop offset="100%" stop-color="#2980C8"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="icon-lbl">Resume.pdf</div>
+    </div>
+
+    <!-- DOCK -->
+    <div class="dock">
+
+        <div class="dock-item" onclick="location.href='index.html'">
+            <!-- Home folder in dock -->
+            <svg width="48" height="42" viewBox="0 0 72 62" fill="none">
+                <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+                <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#dbg1)"/>
+                <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+                <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+                <defs><linearGradient id="dbg1" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5DC3F0"/><stop offset="100%" stop-color="#2980C8"/></linearGradient></defs>
+            </svg>
+            <div class="dock-tip">Home</div>
+            <div class="dock-dot"></div>
+        </div>
+
+        <div class="dock-item" ondblclick="location.href='projects.html'">
+            <svg width="48" height="42" viewBox="0 0 72 62" fill="none">
+                <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+                <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#dbg2)"/>
+                <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+                <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+                <defs><linearGradient id="dbg2" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5DC3F0"/><stop offset="100%" stop-color="#2980C8"/></linearGradient></defs>
+            </svg>
+            <div class="dock-tip">Projects</div>
+            <div class="dock-dot"></div>
+        </div>
+
+        <div class="dock-item" ondblclick="location.href='about.html'">
+            <svg width="48" height="42" viewBox="0 0 72 62" fill="none">
+                <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+                <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#dbg3)"/>
+                <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+                <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+                <defs><linearGradient id="dbg3" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5DC3F0"/><stop offset="100%" stop-color="#2980C8"/></linearGradient></defs>
+            </svg>
+            <div class="dock-tip">About</div>
+        </div>
+
+        <div class="dock-item" ondblclick="location.href='contact.html'">
+            <svg width="48" height="42" viewBox="0 0 72 62" fill="none">
+                <path d="M4 16 Q4 10 10 10 L28 10 Q32 10 34 14 L36 18 L68 18 L68 16 Q68 10 62 10 L10 10 Q4 10 4 16Z" fill="#2D8FD5" opacity="0.7"/>
+                <rect x="4" y="17" width="64" height="41" rx="5" fill="url(#dbg4)"/>
+                <rect x="4" y="17" width="64" height="12" rx="5" fill="rgba(255,255,255,0.22)"/>
+                <ellipse cx="36" cy="21" rx="22" ry="4" fill="rgba(255,255,255,0.18)"/>
+                <defs><linearGradient id="dbg4" x1="36" y1="17" x2="36" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5DC3F0"/><stop offset="100%" stop-color="#2980C8"/></linearGradient></defs>
+            </svg>
+            <div class="dock-tip">Contact</div>
+        </div>
+
+    </div>
+
+    <script>
+        function tick() {
+            const now = new Date();
+            let h = now.getHours(), m = now.getMinutes();
+            const ap = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12; m = String(m).padStart(2,'0');
+            document.getElementById('clock').textContent = `${h}:${m} ${ap}`;
+        }
+        tick(); setInterval(tick, 1000);
+    </script>
 </body>
 </html>

@@ -3,265 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wireframe - About Me.txt</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>About — Tasha Nishid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
+        :root {
+            --paper: #F4EFE6; --ink: #111; --ink-mid: #555; --ink-dim: #999;
+            --blue: #49A8DC; --grid: rgba(0,0,0,0.055);
         }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
         body {
-            /* Notebook grid background */
-            background-color: #fdfbf7;
-            background-image: 
-                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-color: var(--paper);
+            background-image: linear-gradient(var(--grid) 1px,transparent 1px), linear-gradient(90deg,var(--grid) 1px,transparent 1px);
             background-size: 28px 28px;
-            
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            width: 100vw;
-            font-family: 'Inter', sans-serif;
-            color: #334155;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            font-family: -apple-system,'Helvetica Neue',sans-serif;
+            color: var(--ink); min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 44px 20px 32px;
         }
+        .menubar {
+            position: fixed; top:0; left:0; right:0; height:26px;
+            background: rgba(242,237,226,0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 14px; z-index: 200; font-size: 12.5px; font-weight: 500; color: #555; user-select: none;
+        }
+        .mb-l { display: flex; gap: 16px; }
 
-        /* Floating Window */
         .window {
-            width: 520px;
-            background: #ffffff;
+            width: 100%; max-width: 520px;
+            background: rgba(252,249,242,0.97);
+            border: 1px solid rgba(0,0,0,0.1);
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.03);
-            border: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.05);
             overflow: hidden;
-            position: relative;
+            animation: winIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        @keyframes winIn { from{opacity:0;transform:scale(0.94) translateY(14px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+        .win-bar {
+            height: 34px; background: rgba(235,230,220,0.9);
+            border-bottom: 1px solid rgba(0,0,0,0.09);
+            display: flex; align-items: center; padding: 0 14px; position: relative;
+        }
+        .ctrls { display: flex; gap: 7px; position: absolute; left: 14px; }
+        .c { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); transition: opacity .12s; }
+        .c:hover { opacity: .8; }
+        .cr { background: #FF5F57; } .cy { background: #FEBC2E; } .cg { background: #28C840; }
+        .win-title { width: 100%; text-align: center; font-size: 12.5px; font-weight: 500; color: #666; }
+
+        .body { padding: 26px 30px 30px; }
+
+        .intro { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
+        .avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: rgba(73,168,220,0.1);
+            border: 2px solid rgba(73,168,220,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; flex-shrink: 0;
+        }
+        .intro-right { flex: 1; }
+        .intro-name { font-size: 26px; font-weight: 900; color: var(--ink); letter-spacing: -1px; line-height: 1; margin-bottom: 5px; }
+        .intro-name span { color: var(--blue); }
+        .intro-tag { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-dim); line-height: 1.7; }
+
+        .divider { height: 1px; background: rgba(0,0,0,0.08); margin: 0 0 20px; }
+
+        .bio {
+            font-size: 13.5px; color: var(--ink-mid); line-height: 1.75;
+            margin-bottom: 22px;
+            border-left: 3px solid rgba(73,168,220,0.5);
+            padding-left: 14px;
         }
 
-        /* Top Bar */
-        .window-topbar {
-            height: 36px;
-            background-color: #f1f5f9;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            position: relative;
+        .facts { display: flex; flex-direction: column; gap: 11px; margin-bottom: 24px; }
+        .fact { display: flex; gap: 0; font-size: 13.5px; }
+        .fl {
+            width: 92px; font-family: 'Space Mono', monospace; font-size: 10px;
+            color: var(--ink-dim); padding-top: 2px; letter-spacing: 0.04em; flex-shrink: 0; text-transform: uppercase;
         }
+        .fv { color: var(--ink-mid); line-height: 1.5; }
 
-        .window-controls {
-            display: flex;
-            gap: 6px;
-            position: absolute;
-            left: 16px;
+        .links { display: flex; gap: 9px; flex-wrap: wrap; }
+        .btn {
+            font-family: 'Space Mono', monospace; font-size: 11.5px;
+            padding: 7px 14px; border-radius: 7px;
+            border: 1.5px solid rgba(0,0,0,0.12); background: transparent;
+            color: var(--ink-mid); cursor: pointer; text-decoration: none; transition: all .14s;
         }
-
-        .control-circle {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .circle-red { background-color: #ff5f56; }
-        .circle-yellow { background-color: #ffbd2e; }
-        .circle-green { background-color: #27c93f; }
-
-        .window-title {
-            width: 100%;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 500;
-            color: #475569;
-        }
-
-        /* Window Body */
-        .window-body {
-            padding: 24px 32px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Top Section: Photo & Intro */
-        .intro-section {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .photo-placeholder {
-            width: 100px;
-            height: 100px;
-            background-color: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #94a3b8;
-            font-size: 14px;
-            font-weight: 500;
-            flex-shrink: 0;
-        }
-
-        .intro-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 8px;
-            flex-grow: 1;
-        }
-
-        .intro-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin: 0;
-            color: #1e293b;
-        }
-
-        .bio-lines {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .line {
-            height: 2px;
-            border-bottom: 2px dashed #cbd5e1;
-            margin-bottom: 8px;
-        }
-        .line:nth-child(1) { width: 100%; }
-        .line:nth-child(2) { width: 85%; }
-        .line:nth-child(3) { width: 60%; }
-
-        /* Divider */
-        .divider {
-            height: 1px;
-            background-color: #e2e8f0;
-            margin-bottom: 20px;
-        }
-
-        /* Facts rows */
-        .facts-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 28px;
-            font-size: 15px;
-        }
-
-        .fact-row {
-            display: flex;
-        }
-
-        .fact-label {
-            width: 90px;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        .fact-value {
-            color: #334155;
-        }
-
-        /* Link Button */
-        .link-button {
-            align-self: flex-start;
-            font-size: 15px;
-            font-weight: 500;
-            color: #2563eb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .link-button:hover {
-            text-decoration: underline;
-        }
-
-        /* Annotations (Handwritten) */
-        .annotation {
-            position: absolute;
-            font-family: 'Caveat', cursive;
-            color: #dc2626; /* red pen color */
-            font-size: 19px;
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* Annotation placements */
-        #anno-close {
-            /* Positioning relative to the window, placed outside the window pointing towards the red circle */
-            top: -24px;
-            left: -130px;
-            transform: rotate(-3deg);
-        }
-
-        #anno-link {
-            /* Placed next to the link button */
-            bottom: 24px;
-            left: 210px;
-            transform: rotate(2deg);
-        }
-
+        .btn:hover { border-color: var(--blue); color: var(--blue); background: rgba(73,168,220,0.06); }
+        .btn.primary { border-color: var(--blue); color: var(--blue); background: rgba(73,168,220,0.07); }
     </style>
 </head>
 <body>
-
-    <!-- Main Window Container -->
+    <div class="menubar">
+        <div class="mb-l"><span style="font-size:14px">&#63743;</span><strong style="color:#111">Tasha Nishid</strong></div>
+        <span id="clock" style="font-size:12px;color:#999"></span>
+    </div>
     <div class="window">
-        <!-- Annotation for close button (needs to be carefully positioned) -->
-        <div class="annotation" id="anno-close">✕ closes window → Desktop</div>
-        
-        <div class="window-topbar">
-            <div class="window-controls">
-                <div class="control-circle circle-red" onclick="window.location.href='index.html'" style="cursor: pointer;"></div>
-                <div class="control-circle circle-yellow"></div>
-                <div class="control-circle circle-green"></div>
+        <div class="win-bar">
+            <div class="ctrls">
+                <div class="c cr" onclick="history.back()"></div>
+                <div class="c cy"></div>
+                <div class="c cg"></div>
             </div>
-            <div class="window-title">About Me.txt</div>
+            <div class="win-title">About Me.txt</div>
         </div>
-
-        <div class="window-body">
-            <div class="intro-section">
-                <div class="photo-placeholder">[PHOTO]</div>
-                <div class="intro-text">
-                    <h1 class="intro-title">Hi, I'm [Name].</h1>
-                    <div class="bio-lines">
-                        <div class="line"></div>
-                        <div class="line"></div>
-                        <div class="line"></div>
-                    </div>
+        <div class="body">
+            <div class="intro">
+                <div class="avatar">👩‍💻</div>
+                <div class="intro-right">
+                    <div class="intro-name">Hi, I'm <span>Tasha.</span></div>
+                    <div class="intro-tag">Data Scientist · Developer · Builder<br>Purdue University · Class of 2028</div>
                 </div>
             </div>
-
+            <div class="bio">
+                I'm a Data Science student at Purdue with a concentration in CS (Machine Intelligence). I build things at the intersection of data, ML, and real-world impact — from AI-powered security analytics to sustainability dashboards. Always looking for internships, collabs, and interesting problems.
+            </div>
             <div class="divider"></div>
-
-            <div class="facts-list">
-                <div class="fact-row">
-                    <div class="fact-label">Currently:</div>
-                    <div class="fact-value">[Major] at [University]</div>
-                </div>
-                <div class="fact-row">
-                    <div class="fact-label">Based in:</div>
-                    <div class="fact-value">[City]. Open to cool opportunities.</div>
-                </div>
-                <div class="fact-row">
-                    <div class="fact-label">Into:</div>
-                    <div class="fact-value">data, design, and side projects</div>
-                </div>
+            <div class="facts">
+                <div class="fact"><div class="fl">Currently</div><div class="fv">B.S. Data Science @ Purdue University</div></div>
+                <div class="fact"><div class="fl">Track</div><div class="fv">CS — Machine Intelligence</div></div>
+                <div class="fact"><div class="fl">Based in</div><div class="fv">West Lafayette, IN · open to opportunities</div></div>
+                <div class="fact"><div class="fl">Into</div><div class="fv">ML, data pipelines, cybersecurity, design</div></div>
+                <div class="fact"><div class="fl">Fun fact</div><div class="fv">I have owned 14 tennis rackets</div></div>
             </div>
-
-            <div class="link-button" id="link-projects" onclick="window.location.href='projects.html'">→ See My Projects</div>
-            <div class="annotation" id="anno-link">→ Projects Folder</div>
+            <div class="links">
+                <a class="btn primary" href="projects.html">→ Projects</a>
+                <a class="btn" href="skills.html">→ Skills</a>
+                <a class="btn" href="contact.html">→ Say Hello</a>
+                <a class="btn" href="index.html">← Desktop</a>
+            </div>
         </div>
     </div>
-
+    <script>
+        function tick(){const n=new Date();let h=n.getHours(),m=n.getMinutes();const a=h>=12?'PM':'AM';h=h%12||12;m=String(m).padStart(2,'0');document.getElementById('clock').textContent=`${h}:${m} ${a}`;}
+        tick();setInterval(tick,1000);
+    </script>
 </body>
 </html>

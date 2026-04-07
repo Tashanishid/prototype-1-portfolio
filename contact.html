@@ -3,283 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wireframe - Contact Card</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Say Hello — Tasha Nishid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        :root{--paper:#F4EFE6;--ink:#111;--ink-mid:#555;--ink-dim:#999;--blue:#49A8DC;--grid:rgba(0,0,0,0.055);}
+        *{box-sizing:border-box;margin:0;padding:0;}
+        html,body{height:100%;}
+        body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;font-family:-apple-system,'Helvetica Neue',sans-serif;color:var(--ink);height:100vh;display:flex;align-items:center;justify-content:center;position:relative;}
+        .menubar{position:fixed;top:0;left:0;right:0;height:26px;background:rgba(242,237,226,0.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:200;font-size:12.5px;font-weight:500;color:#555;user-select:none;}
 
-        body {
-            /* Full notebook grid paper desktop */
-            background-color: #fdfbf7;
-            background-image: 
-                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
-            background-size: 28px 28px;
-            
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            width: 100vw;
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
-            position: relative;
-            color: #334155;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        /* dim overlay */
+        .overlay{position:fixed;inset:0;background:rgba(210,200,185,0.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);z-index:5;}
 
-        /* Faint Desktop Icons (Background) */
-        .desktop-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+        /* MODAL - looks like a floating macOS window */
+        .modal{
+            position:relative;z-index:20;width:320px;
+            background:rgba(253,250,244,0.98);
+            border:1px solid rgba(0,0,0,0.11);
+            border-radius:12px;
+            box-shadow:0 20px 50px rgba(0,0,0,0.16),0 4px 12px rgba(0,0,0,0.07);
+            overflow:hidden;
+            animation:modalIn .4s cubic-bezier(.22,1,.36,1) both;
         }
+        @keyframes modalIn{from{opacity:0;transform:scale(.88) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
 
-        .desktop-item {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100px;
-            opacity: 0.8; /* Faintly visible */
+        .modal-bar{height:32px;background:rgba(235,230,220,0.9);border-bottom:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;padding:0 12px;position:relative;}
+        .ctrls{display:flex;gap:7px;position:absolute;left:12px;}
+        .c{width:12px;height:12px;border-radius:50%;cursor:pointer;border:1px solid rgba(0,0,0,0.1);}
+        .cr{background:#FF5F57;}.cy{background:#FEBC2E;}.cg{background:#28C840;}
+        .modal-bar-title{width:100%;text-align:center;font-size:12px;font-weight:500;color:#777;}
+
+        .modal-body{padding:22px 22px 24px;}
+
+        .m-name{font-size:24px;font-weight:900;letter-spacing:-1px;color:var(--ink);margin-bottom:3px;}
+        .m-name span{color:var(--blue);}
+        .m-sub{font-family:'Space Mono',monospace;font-size:10.5px;color:var(--ink-dim);line-height:1.6;margin-bottom:18px;}
+
+        .divider{height:1px;background:rgba(0,0,0,0.08);margin:0 0 16px;}
+
+        .links{display:flex;flex-direction:column;gap:9px;margin-bottom:20px;}
+        .link{
+            display:flex;align-items:center;gap:11px;
+            padding:10px 13px;
+            background:rgba(0,0,0,0.025);
+            border:1px solid rgba(0,0,0,0.07);
+            border-radius:8px;
+            text-decoration:none;color:var(--ink-mid);font-size:13px;
+            transition:all .14s;
         }
-
-        .icon-box {
-            width: 64px;
-            height: 64px;
-            background-color: #f1f5f9;
-            border: 2px solid #94a3b8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 28px;
+        .link:hover{background:rgba(73,168,220,0.07);border-color:rgba(73,168,220,0.3);color:var(--ink);}
+        .link-icon{
+            width:28px;height:28px;
+            background:linear-gradient(145deg,#5DC3F0 0%,#2980C8 100%);
+            border-radius:7px;display:flex;align-items:center;justify-content:center;
+            flex-shrink:0;font-size:13px;color:#fff;font-weight:700;
         }
+        .link-text{flex:1;}
+        .link-lbl{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;display:block;color:var(--ink);margin-bottom:1px;}
+        .link-val{font-size:11.5px;color:var(--ink-dim);}
 
-        .icon-label {
-            margin-top: 8px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        #item-projects { top: 15%; left: 12%; }
-        #item-about { top: 22%; right: 18%; }
-        #item-contact { top: 65%; left: 50%; transform: translateX(-50%) rotate(3deg); }
-        #item-resume { top: 75%; right: 15%; }
-
-        /* Dim overlay */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(15, 23, 42, 0.4); /* Dark overlay */
-            z-index: 5;
-        }
-
-        /* Sticky Note Modal */
-        .sticky-note {
-            width: 320px;
-            background-color: #fef08a; /* Bright yellow fill */
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0,0,0,0.05); /* Slight shadow */
-            transform: rotate(2deg); /* Rotated 2 degrees clockwise */
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
-            position: relative;
-        }
-
-        /* Top pushpin */
-        .pushpin {
-            font-size: 24px;
-            margin-bottom: 8px;
-            margin-top: -12px;
-        }
-
-        .name-text {
-            font-size: 22px;
-            font-weight: 600;
-            color: #1e293b;
-            margin: 0 0 4px 0;
-            text-align: center;
-        }
-
-        .subtitle {
-            font-size: 15px;
-            font-weight: 500;
-            color: #475569;
-            margin: 0 0 16px 0;
-            text-align: center;
-        }
-
-        .bio-para {
-            font-size: 14px;
-            color: #334155;
-            text-align: center;
-            line-height: 1.4;
-            margin: 0 0 16px 0;
-        }
-
-        /* Divider */
-        .divider {
-            width: 100%;
-            height: 1px;
-            background-color: #eab308; /* Slightly darker yellow */
-            margin-bottom: 16px;
-        }
-
-        /* Link rows */
-        .links-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .link-row {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: #1e293b;
-            text-decoration: none;
-            gap: 12px;
-        }
-        
-        .link-row:hover {
-            color: #0f172a;
-            text-decoration: underline;
-        }
-
-        .link-icon {
-            font-size: 16px;
-        }
-
-        /* Bottom button */
-        .btn-close {
-            background-color: transparent;
-            border: 2px solid #ca8a04;
-            color: #b45309;
-            padding: 6px 16px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .btn-close:hover {
-            background-color: rgba(202, 138, 4, 0.1);
-        }
-
-        /* Annotations (Handwritten style) */
-        .annotation {
-            position: absolute;
-            font-family: 'Caveat', cursive;
-            color: #dc2626; /* red pen */
-            font-size: 18px;
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 20;
-        }
-
-        #anno-close {
-            bottom: -25px;
-            left: 50px;
-            transform: rotate(-3deg);
-        }
-
-        #anno-email {
-            top: 170px;
-            right: -140px;
-            transform: rotate(2deg);
-        }
-
-        #anno-linkedin {
-            top: 205px;
-            right: -130px;
-            transform: rotate(-1deg);
-        }
-
-        #anno-github {
-            top: 240px;
-            right: -130px;
-            transform: rotate(1deg);
-        }
-
+        .back{display:block;text-align:center;font-family:'Space Mono',monospace;font-size:10.5px;color:var(--ink-dim);text-decoration:none;transition:color .12s;}
+        .back:hover{color:var(--blue);}
     </style>
 </head>
 <body>
-
-    <!-- Desktop Icons Background -->
-    <div class="desktop-bg">
-        <div class="desktop-item" id="item-projects">
-            <div class="icon-box">📁</div>
-            <div class="icon-label">Projects</div>
+    <div class="menubar">
+        <div style="display:flex;gap:16px;"><span style="font-size:14px">&#63743;</span><strong style="color:#111">Tasha Nishid</strong></div>
+    </div>
+    <div class="overlay" onclick="location.href='index.html'"></div>
+    <div class="modal">
+        <div class="modal-bar">
+            <div class="ctrls">
+                <div class="c cr" onclick="location.href='index.html'"></div>
+                <div class="c cy"></div>
+                <div class="c cg"></div>
+            </div>
+            <div class="modal-bar-title">Say Hello</div>
         </div>
-        <div class="desktop-item" id="item-about">
-            <div class="icon-box">📄</div>
-            <div class="icon-label">About Me.txt</div>
-        </div>
-        <div class="desktop-item" id="item-contact">
-            <div class="icon-box">📌</div>
-            <div class="icon-label">Say Hello</div>
-        </div>
-        <div class="desktop-item" id="item-resume">
-            <div class="icon-box">🗒</div>
-            <div class="icon-label">Resume.pdf</div>
+        <div class="modal-body">
+            <div class="m-name">Tasha <span>Nishid</span></div>
+            <div class="m-sub">Data Science · Purdue · Class of '28<br>Looking for internships, collabs & cool problems.</div>
+            <div class="divider"></div>
+            <div class="links">
+                <a class="link" href="mailto:tnishid@purdue.edu">
+                    <div class="link-icon">✉</div>
+                    <div class="link-text">
+                        <span class="link-lbl">Email</span>
+                        <span class="link-val">tnishid@purdue.edu</span>
+                    </div>
+                </a>
+                <a class="link" href="https://linkedin.com/in/tashanishid" target="_blank">
+                    <div class="link-icon" style="font-size:11px;letter-spacing:-.5px;">in</div>
+                    <div class="link-text">
+                        <span class="link-lbl">LinkedIn</span>
+                        <span class="link-val">linkedin.com/in/tashanishid</span>
+                    </div>
+                </a>
+                <a class="link" href="https://github.com/tashanishid" target="_blank">
+                    <div class="link-icon" style="font-size:16px;">⌥</div>
+                    <div class="link-text">
+                        <span class="link-lbl">GitHub</span>
+                        <span class="link-val">github.com/tashanishid</span>
+                    </div>
+                </a>
+            </div>
+            <a class="back" href="index.html">← back to desktop</a>
         </div>
     </div>
-
-    <!-- Semi-transparent overlay -->
-    <div class="overlay"></div>
-
-    <!-- Sticky Note Modal -->
-    <div class="sticky-note">
-        
-        <!-- Annotations mapping outside the sticky note -->
-        <div class="annotation" id="anno-close">← dismisses modal, returns to Desktop</div>
-        <div class="annotation" id="anno-email">← mailto link</div>
-        <div class="annotation" id="anno-linkedin">← External link</div>
-        <div class="annotation" id="anno-github">← External link</div>
-
-        <div class="pushpin">📌</div>
-        <p class="name-text">[NAME]</p>
-        <p class="subtitle">Let's talk.</p>
-        <p class="bio-para">Looking for internships, collabs, and interesting problems.</p>
-        
-        <div class="divider"></div>
-
-        <div class="links-container">
-            <a href="#" class="link-row">
-                <span class="link-icon">✉</span> email@email.com
-            </a>
-            <a href="#" class="link-row">
-                <span class="link-icon">🔗</span> linkedin.com/in/yourname
-            </a>
-            <a href="#" class="link-row">
-                <span class="link-icon">🐙</span> github.com/yourname
-            </a>
-        </div>
-
-        <a href="index.html" class="btn-close">[ ✕ close ]</a>
-
-    </div>
-
 </body>
 </html>
